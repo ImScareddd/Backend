@@ -1,30 +1,40 @@
 package com.example.hackaton.controller;
 
+import com.example.hackaton.entity.EmotionalScore;
 import com.example.hackaton.entity.Image;
-import com.example.hackaton.entity.User;
+
+import com.example.hackaton.repository.EmotionalScoreRepository;
 import com.example.hackaton.repository.ImageRepository;
+import com.example.hackaton.service.PromptService;
 import com.theokanning.openai.image.CreateImageRequest;
 import com.theokanning.openai.service.OpenAiService;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-public class ImageController {
+public class ToDoListController {
 
     private final ImageRepository imageRepository;
+    private final EmotionalScoreRepository emotionalScoreRepository;
+    private final PromptService promptService;
 
     @Value("${openai-key}")
     private String OPENAI_KEY;
+
+//    @PostMapping("/toDoList")
+//    public ResponseEntity<String> generateToDoList(
+//            @RequestParam String date,
+//            @RequestParam String
+//    )
 
 
     @PostMapping("/generate/image")
@@ -41,50 +51,28 @@ public class ImageController {
         System.out.println("imageUrl = " + imageUrl);
 
 
-        image.setEmail(email);
         image.setUrl(imageUrl);
         image.setEmail("1");
         image.setDate(date);
-//        File file = new File(imageUrl);
-//        String image1 = awsS3Service.upload(file, "Image");
-//        image.setUrl(image1);
-//        image.setDate(date);
+
 
         log.info("Image generated: {}", image);
         imageRepository.save(image);
         return ResponseEntity.ok("generate Success");
     }
 
-    @PostMapping("/generate/sleepDiary")
-    public ResponseEntity<String> generateDiary(
-            @SessionAttribute(name = "loginUser", required = false) User loginUser,
+    @PostMapping("/emotionalScore")
+    public ResponseEntity<String> emotionalScore(
+            @RequestParam int googleId,
             @RequestParam String date,
-            @RequestParam String caffeineIntake,
-            @RequestParam String caffeineIntakeTime,
-            @RequestParam String Exercise,
-            @RequestParam String ExerciseTime,
-            @RequestParam String pill,
-            @RequestParam String pillDosage,
-            @RequestParam String SleepTime,
-            @RequestParam String wakeUpTime) {
+            @RequestParam int emotionalScore){
 
-        SleepDiary sleepDiary = new SleepDiary(date,Integer.parseInt(caffeineIntake),Integer.parseInt(caffeineIntakeTime),Integer.parseInt(Exercise),Integer.parseInt(ExerciseTime),pill,Integer.parseInt(pillDosage),Integer.parseInt(SleepTime),Integer.parseInt(wakeUpTime));
-
-        System.out.println("caffeineIntake = " + caffeineIntake);
-
-        System.out.println("sleepDiary = " + sleepDiary);
-
-        if (loginUser != null) {
-            String email = loginUser.getEmail();
-            sleepDiary.setEmail(email);
-        }
-
-        log.info("Diary generated: {}", sleepDiary);
-
-
-        sleepDiaryRepository.save(sleepDiary);
-        return ResponseEntity.ok("generate Success");
+        EmotionalScore emotionalScore1 = new EmotionalScore(googleId, date, emotionalScore);
+        emotionalScoreRepository.save(emotionalScore1);
+        return ResponseEntity.ok("Success");
     }
+
+
 
 
     private String openAiImageUrl(Image imageToRequest) {

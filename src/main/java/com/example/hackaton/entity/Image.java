@@ -14,7 +14,6 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
-
     private String email;
     private String date;
 
@@ -27,7 +26,7 @@ public class Image {
 
     public Image(String date, String prompt, String url) {
         this.date = date;
-        this.Prompt = prompt;
+        this.prompt = prompt;
         this.url = url;
     }
 

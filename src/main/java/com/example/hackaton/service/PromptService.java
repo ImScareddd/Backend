@@ -1,6 +1,7 @@
 package com.example.hackaton.service;
 
 
+import com.example.hackaton.entity.Image;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +17,7 @@ public class PromptService {
         String date = imageToRequest.getDate();
         String prompt = imageToRequest.getPrompt();
 
-        if (byDate.isPresent()) {
-            SleepDiary sleepDiary = byDate.get();
-            int sleepTime = sleepDiary.getSleepTime();
 
-            if(sleepTime<3){
-                prompt= prompt +",black";
-            } else if (sleepTime<6) {
-                prompt= prompt +",Red";
-            } else if (sleepTime<8) {
-                prompt= prompt +",yellow";
-            } else if (sleepTime >= 8) {
-                prompt= prompt +",green";
-            }
-        }
         return prompt;
     }
 }

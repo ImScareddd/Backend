@@ -6,8 +6,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Diary_table")
-@Getter
-@Setter
+@Getter@Setter
 public class Diary {
 
     @Id
@@ -17,5 +16,15 @@ public class Diary {
     private String date;
     private String time;
     @Column(length = 500)
-    private String Diary;
+    private String diary;
+
+    public Diary(Long googleId, String date, String time, String diary) {
+        this.googleId = googleId;
+        this.date = date;
+        this.time = time;
+        this.diary = diary;
+    }
+
+    public Diary() {
+    }
 }

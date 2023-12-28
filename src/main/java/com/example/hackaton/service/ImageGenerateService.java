@@ -14,11 +14,10 @@ public class ImageGenerateService {
     private String OPENAI_KEY;
 
 
-    public String openAiImageUrl(Image imageToRequest) {
+    public String openAiImageUrl(String imageToRequest) {
         OpenAiService service = new OpenAiService(OPENAI_KEY);
-        String s = promptService.promptService(imageToRequest);
         CreateImageRequest build = CreateImageRequest.builder()
-                .prompt(s)
+                .prompt(imageToRequest)
                 .n(1)
                 .size("512x512")
                 .build();

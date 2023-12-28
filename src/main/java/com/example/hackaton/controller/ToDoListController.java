@@ -72,29 +72,7 @@ public class ToDoListController {
     }
 
 
-//    @PostMapping("/imageGenerate")
-//    public ResponseEntity<String> generateImage(
-//
-//            @RequestParam String date,
-//            @RequestParam String prompt) {
-//
-//
-//        Image image = new Image();
-//        image.setPrompt(prompt);
-//        String imageUrl = imageGenerateService.openAiImageUrl(image);
-//
-//        System.out.println("imageUrl = " + imageUrl);
-//
-//
-//        image.setUrl(imageUrl);
-//        image.set("1");
-//        image.setDate(date);
-//
-//
-//        log.info("Image generated: {}", image);
-//        imageRepository.save(image);
-//        return ResponseEntity.ok("generate Success");
-//    }
+
 
     @PostMapping("/emotionalScore")
     public ResponseEntity<String> emotionalScore(

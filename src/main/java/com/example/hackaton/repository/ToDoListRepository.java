@@ -11,8 +11,8 @@ public interface ToDoListRepository extends JpaRepository<ToDoList,Long> {
 
     ToDoList save(ToDoList toDoList);
 
-    ToDoList findByGoogleIdAndDateAndTodoList(long googleId, String date, String todoList);
+    ToDoList findByGoogleIdAndDateAndTodoList(String googleId, String date, String todoList);
 
-    List<ToDoList> findByGoogleIdAndDate(long googleId, String date);
+    List<ToDoList> findByGoogleIdAndDate(String googleId, String date);
 
 }

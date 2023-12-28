@@ -25,13 +25,13 @@ public class EmotionalScoreController {
     FlaskClient flaskclient;
 
 
-    @GetMapping("/Predict")
-    public ResponseEntity<String> predictEmotionalScore(@RequestParam long googleId){
+    @GetMapping("/predict")
+    public ResponseEntity<String> predictEmotionalScore(@RequestParam String googleId){
 
         List<EmotionalScore> byGoogleId = emotionalScoreRepository.findByGoogleId(googleId);
         ArrayList<EmotionalScoreDto> emotionalScoreDtos = new ArrayList<>();
         for (EmotionalScore emotionalScore : byGoogleId) {
-            long googleId1 = emotionalScore.getGoogleId();
+            String googleId1 = emotionalScore.getGoogleId();
             String date = emotionalScore.getDate();
             int emotionalScore1 = emotionalScore.getEmotionalScore();
             EmotionalScoreDto emotionalScoreDto = new EmotionalScoreDto(googleId1,date,emotionalScore1);
@@ -45,7 +45,7 @@ public class EmotionalScoreController {
 
     @PostMapping("/emotionalScore")
     public ResponseEntity<String> emotionalScore(
-            @RequestParam Long googleId,
+            @RequestParam String googleId,
             @RequestParam String date,
             @RequestParam int emotionalScore){
 

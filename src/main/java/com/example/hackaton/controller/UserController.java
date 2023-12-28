@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String name,
                                         @RequestParam String email,
-                                        @RequestParam long googleId,
+                                        @RequestParam String googleId,
                                         HttpServletRequest request) {
 
         User user = new User(email, name, googleId);

@@ -13,7 +13,7 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
-    private long googleId;
+    private String googleId;
     private String date;
     private String question;
     private String answer;

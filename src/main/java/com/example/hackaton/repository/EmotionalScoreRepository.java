@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EmotionalScoreRepository extends JpaRepository<EmotionalScore, Long> {
-    List<EmotionalScore> findByGoogleId(Long googleId);
+    List<EmotionalScore> findByGoogleId(String googleId);
 }

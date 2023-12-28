@@ -13,7 +13,7 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
-    private long googleId;
+    private String googleId;
     private String date;
     @Column(length = 500)
     private String url;

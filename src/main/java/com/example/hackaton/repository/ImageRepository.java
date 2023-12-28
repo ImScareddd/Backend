@@ -13,7 +13,7 @@ public interface ImageRepository extends JpaRepository<Image,Long> {
     Image save(Image image);
 
     Optional<Image> findByID(Long id);
-    Image findByGoogleIdAndDate(Long googleId, String date);
+    Image findByGoogleIdAndDate(String googleId, String date);
 
 
 }

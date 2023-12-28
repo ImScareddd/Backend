@@ -29,7 +29,7 @@ public class DiaryController {
 
     @PostMapping("/write")
     public ResponseEntity<String> diaryWrite(
-            @RequestParam Long googleId,
+            @RequestParam String googleId,
             @RequestParam String date,
             @RequestParam String time,
             @RequestParam String diary){
@@ -42,7 +42,7 @@ public class DiaryController {
 
     @GetMapping("/list")
     public ResponseEntity<List<Diary>> diaryList(
-            @RequestParam Long googleId,
+            @RequestParam String googleId,
             @RequestParam String date
     ){
 
@@ -53,7 +53,7 @@ public class DiaryController {
 
     @GetMapping("/generateImage")
     public ResponseEntity<String> generateImage(
-            @RequestParam Long googleId,
+            @RequestParam String googleId,
             @RequestParam String date
     ){
 
@@ -82,7 +82,7 @@ public class DiaryController {
 
     @GetMapping("/image")
     public ResponseEntity<String> Image(
-            @RequestParam Long googleId,
+            @RequestParam String googleId,
             @RequestParam String date
     ){
         Image byGoogleIdAndDate = imageRepository.findByGoogleIdAndDate(googleId, date);
@@ -93,7 +93,7 @@ public class DiaryController {
 
     @GetMapping("/quizGenerate")
     public ResponseEntity<List<QuizDto>> generateQuiz(
-            @RequestParam Long googleId,
+            @RequestParam String googleId,
             @RequestParam String date
     ){
         List<Diary> byGoogleIdAndDateAndTime = diaryRepository.findByGoogleIdAndDate(googleId, date);

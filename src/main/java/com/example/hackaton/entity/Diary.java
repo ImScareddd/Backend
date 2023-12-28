@@ -12,13 +12,13 @@ public class Diary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
-    private Long googleId;
+    private String googleId;
     private String date;
     private String time;
     @Column(length = 500)
     private String diary;
 
-    public Diary(Long googleId, String date, String time, String diary) {
+    public Diary(String googleId, String date, String time, String diary) {
         this.googleId = googleId;
         this.date = date;
         this.time = time;

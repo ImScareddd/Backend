@@ -34,7 +34,7 @@ public class ToDoListController {
 
     @PostMapping("/add")
     public ResponseEntity<String> generateToDoList(
-            @RequestParam long googleId,
+            @RequestParam String googleId,
             @RequestParam String date,
             @RequestParam String todoList
     ){
@@ -46,7 +46,7 @@ public class ToDoListController {
 
     @PutMapping("/check")
     public ResponseEntity<String> checkToDoList(
-            @RequestParam long googleId,
+            @RequestParam String googleId,
             @RequestParam String date,
             @RequestParam String todoList,
             @RequestParam String finishedDate
@@ -61,7 +61,7 @@ public class ToDoListController {
 
     @GetMapping()
     public ResponseEntity<List<ToDoList>> postToDoList(
-            @RequestParam long googleId,
+            @RequestParam String googleId,
             @RequestParam String date
     ){
         List<ToDoList> byGoogleIdAndDate = toDoListRepository.findByGoogleIdAndDate(googleId, date);

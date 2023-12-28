@@ -17,9 +17,9 @@ public class User {
 
     private String email;
     private String name;
-    private int googleId;
+    private long googleId;
 
-    public User(String email, String name, int googleId) {
+    public User(String email, String name, long googleId) {
         this.email = email;
         this.name = name;
         this.googleId = googleId;

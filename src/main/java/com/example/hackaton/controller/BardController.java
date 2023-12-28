@@ -4,7 +4,6 @@ package com.example.hackaton.controller;
 import com.pkslow.ai.AIClient;
 import com.pkslow.ai.GoogleBardClient;
 import com.pkslow.ai.domain.Answer;
-import com.pkslow.ai.domain.AnswerStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

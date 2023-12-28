@@ -72,6 +72,7 @@ public class ToDoListController {
         return ResponseEntity.ok(byGoogleIdAndDate);
     }
 
+
 //    @PostMapping("/generate/image")
 //    public ResponseEntity<String> generateImage(
 //
@@ -96,16 +97,16 @@ public class ToDoListController {
 //        return ResponseEntity.ok("generate Success");
 //    }
 //
-//    @PostMapping("/emotionalScore")
-//    public ResponseEntity<String> emotionalScore(
-//            @RequestParam int googleId,
-//            @RequestParam String date,
-//            @RequestParam int emotionalScore){
-//
-//        EmotionalScore emotionalScore1 = new EmotionalScore(googleId, date, emotionalScore);
-//        emotionalScoreRepository.save(emotionalScore1);
-//        return ResponseEntity.ok("Success");
-//    }
+    @PostMapping("/emotionalScore")
+    public ResponseEntity<String> emotionalScore(
+            @RequestParam int googleId,
+            @RequestParam String date,
+            @RequestParam int emotionalScore){
+
+        EmotionalScore emotionalScore1 = new EmotionalScore(googleId, date, emotionalScore);
+        emotionalScoreRepository.save(emotionalScore1);
+        return ResponseEntity.ok("Success");
+    }
 //
 //
 //

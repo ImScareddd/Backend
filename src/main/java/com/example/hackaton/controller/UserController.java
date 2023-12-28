@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -31,7 +33,13 @@ public class UserController {
                                         HttpServletRequest request) {
 
         User user = new User(email, name, googleId);
-        userRepository.save(user);
+        Optional<User> byGoogleId = userRepository.findByGoogleId(googleId);
+
+        if (byGoogleId.isPresent()){
+            return ResponseEntity.ok("이미 있는 아이디 입니다. 로그인성공");
+        }else {
+            userRepository.save(user);
+        }
 
         return ResponseEntity.ok("로그인성공");
     }

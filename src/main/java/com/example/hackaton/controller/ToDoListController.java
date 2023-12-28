@@ -7,6 +7,7 @@ import com.example.hackaton.entity.ToDoList;
 import com.example.hackaton.repository.EmotionalScoreRepository;
 import com.example.hackaton.repository.ImageRepository;
 import com.example.hackaton.repository.ToDoListRepository;
+import com.example.hackaton.service.ImageGenerateService;
 import com.example.hackaton.service.PromptService;
 import com.theokanning.openai.image.CreateImageRequest;
 import com.theokanning.openai.service.OpenAiService;
@@ -31,9 +32,7 @@ public class ToDoListController {
     private final EmotionalScoreRepository emotionalScoreRepository;
     private final PromptService promptService;
     private final ToDoListRepository toDoListRepository;
-
-    @Value("${openai-key}")
-    private String OPENAI_KEY;
+    private final ImageGenerateService imageGenerateService;
 
     @PostMapping("/add")
     public ResponseEntity<String> generateToDoList(
@@ -51,12 +50,12 @@ public class ToDoListController {
     public ResponseEntity<String> checkToDoList(
             @RequestParam long googleId,
             @RequestParam String date,
-            @RequestParam String finishedDate,
-            @RequestParam String todoList
+            @RequestParam String todoList,
+            @RequestParam String finishedDate
     ){
         ToDoList byGoogleIdAndDateAndTodoList = toDoListRepository.findByGoogleIdAndDateAndTodoList(googleId, date, todoList);
         byGoogleIdAndDateAndTodoList.setStatus(1);
-        byGoogleIdAndDateAndTodoList.setFinisedDate(finishedDate);
+        byGoogleIdAndDateAndTodoList.setFinishedDate(finishedDate);
         toDoListRepository.save(byGoogleIdAndDateAndTodoList);
 
         return ResponseEntity.ok("Success");
@@ -73,7 +72,7 @@ public class ToDoListController {
     }
 
 
-//    @PostMapping("/generate/image")
+//    @PostMapping("/imageGenerate")
 //    public ResponseEntity<String> generateImage(
 //
 //            @RequestParam String date,
@@ -82,13 +81,13 @@ public class ToDoListController {
 //
 //        Image image = new Image();
 //        image.setPrompt(prompt);
-//        String imageUrl = openAiImageUrl(image);
+//        String imageUrl = imageGenerateService.openAiImageUrl(image);
 //
 //        System.out.println("imageUrl = " + imageUrl);
 //
 //
 //        image.setUrl(imageUrl);
-//        image.setEmail("1");
+//        image.set("1");
 //        image.setDate(date);
 //
 //
@@ -96,10 +95,10 @@ public class ToDoListController {
 //        imageRepository.save(image);
 //        return ResponseEntity.ok("generate Success");
 //    }
-//
+
     @PostMapping("/emotionalScore")
     public ResponseEntity<String> emotionalScore(
-            @RequestParam int googleId,
+            @RequestParam Long googleId,
             @RequestParam String date,
             @RequestParam int emotionalScore){
 
@@ -107,26 +106,6 @@ public class ToDoListController {
         emotionalScoreRepository.save(emotionalScore1);
         return ResponseEntity.ok("Success");
     }
-//
-//
-//
-//
-//    private String openAiImageUrl(Image imageToRequest) {
-//        OpenAiService service = new OpenAiService(OPENAI_KEY);
-//        String s = promptService.promptService(imageToRequest);
-//        CreateImageRequest build = CreateImageRequest.builder()
-//                .prompt(s)
-//                .n(1)
-//                .size("512x512")
-//                .build();
-//
-//        String imgUrl = service.createImage(build)
-//                .getData()
-//                .get(0)
-//                .getUrl();
-//
-//        return imgUrl;
-//    }
 
 
 }

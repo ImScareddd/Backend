@@ -17,7 +17,7 @@ public class ToDoList {
     private int status;
     private  long googleId;
     private String date;
-    private String finisedDate;
+    private String finishedDate;
 
     @Column(length = 500)
     private String todoList;

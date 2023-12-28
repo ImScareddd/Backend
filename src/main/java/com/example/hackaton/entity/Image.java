@@ -14,7 +14,7 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
-    private String email;
+    private String googleId;
     private String date;
 
     @Column(length = 500)
@@ -30,13 +30,6 @@ public class Image {
         this.url = url;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getDate() {
         return date;

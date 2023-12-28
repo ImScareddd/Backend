@@ -1,12 +1,15 @@
 package com.example.hackaton.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class EmotionalScoreDto {
 
-    private int googleId;
+    private Long googleId;
     private String date;
+    @JsonProperty("emotionalScore")
     private int emotionalScore;
 
-    public EmotionalScoreDto(int googleId, String date, int emotionalScore) {
+    public EmotionalScoreDto(Long googleId, String date, int emotionalScore) {
         this.googleId = googleId;
         this.date = date;
         this.emotionalScore = emotionalScore;

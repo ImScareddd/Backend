@@ -13,11 +13,11 @@ public class EmotionalScore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
-    private int googleId;
+    private Long googleId;
     private String date;
     private int emotionalScore;
 
-    public EmotionalScore(int googleId, String date, int emotionalScore) {
+    public EmotionalScore(Long googleId, String date, int emotionalScore) {
         this.googleId = googleId;
         this.date = date;
         this.emotionalScore = emotionalScore;

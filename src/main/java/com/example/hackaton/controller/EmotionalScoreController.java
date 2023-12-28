@@ -1,6 +1,7 @@
 package com.example.hackaton.controller;
 
 import com.example.hackaton.dto.EmotionalScoreDto;
+import com.example.hackaton.dto.PredictDto;
 import com.example.hackaton.entity.EmotionalScore;
 import com.example.hackaton.repository.EmotionalScoreRepository;
 import com.example.hackaton.service.FlaskClient;
@@ -26,21 +27,25 @@ public class EmotionalScoreController {
 
 
     @GetMapping("/predict")
-    public ResponseEntity<String> predictEmotionalScore(@RequestParam String googleId){
+    public ResponseEntity<PredictDto> predictEmotionalScore(
+            @RequestParam String googleId,
+            @RequestParam String date){
 
         List<EmotionalScore> byGoogleId = emotionalScoreRepository.findByGoogleId(googleId);
         ArrayList<EmotionalScoreDto> emotionalScoreDtos = new ArrayList<>();
         for (EmotionalScore emotionalScore : byGoogleId) {
             String googleId1 = emotionalScore.getGoogleId();
-            String date = emotionalScore.getDate();
+            String date1 = emotionalScore.getDate();
             int emotionalScore1 = emotionalScore.getEmotionalScore();
-            EmotionalScoreDto emotionalScoreDto = new EmotionalScoreDto(googleId1,date,emotionalScore1);
+            EmotionalScoreDto emotionalScoreDto = new EmotionalScoreDto(googleId1,date1,emotionalScore1);
             emotionalScoreDtos.add(emotionalScoreDto);
         }
         flaskclient.trainModel(emotionalScoreDtos);
         List<Double> predict = flaskclient.predict(emotionalScoreDtos);
-        System.out.println(predict);
-        return ResponseEntity.ok("Success");
+        List<EmotionalScore> recentScores = emotionalScoreRepository.findRecentScores(googleId,date);
+
+        PredictDto predictDto = new PredictDto(predict, recentScores);
+        return ResponseEntity.ok(predictDto);
     }
 
     @PostMapping("/emotionalScore")

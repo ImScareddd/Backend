@@ -1,10 +1,12 @@
 package com.example.hackaton.controller;
 
+import com.example.hackaton.dto.QuizDto;
 import com.example.hackaton.entity.Diary;
 import com.example.hackaton.entity.Image;
 import com.example.hackaton.repository.DiaryRepository;
 import com.example.hackaton.repository.ImageRepository;
 import com.example.hackaton.service.ImageGenerateService;
+import com.example.hackaton.service.QuizGenerateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ public class DiaryController {
     private final DiaryRepository diaryRepository;
     private final ImageGenerateService imageGenerateService;
     private final ImageRepository imageRepository;
+    private final QuizGenerateService quizGenerateService;
 
     @PostMapping("/write")
     public ResponseEntity<String> diaryWrite(
@@ -74,6 +77,34 @@ public class DiaryController {
 
         log.info("Image generated: {}", image);
         imageRepository.save(image);
-        return ResponseEntity.ok("generate Success");
+        return ResponseEntity.ok(imageUrl);
+    }
+
+    @GetMapping("/image")
+    public ResponseEntity<String> Image(
+            @RequestParam Long googleId,
+            @RequestParam String date
+    ){
+        Image byGoogleIdAndDate = imageRepository.findByGoogleIdAndDate(googleId, date);
+        String url = byGoogleIdAndDate.getUrl();
+
+        return ResponseEntity.ok(url);
+    }
+
+    @GetMapping("/quizGenerate")
+    public ResponseEntity<List<QuizDto>> generateQuiz(
+            @RequestParam Long googleId,
+            @RequestParam String date
+    ){
+        List<Diary> byGoogleIdAndDateAndTime = diaryRepository.findByGoogleIdAndDate(googleId, date);
+
+        String s = "";
+        for (Diary diary : byGoogleIdAndDateAndTime) {
+            String diary1 = diary.getDiary();
+            s += diary1;
+        }
+        List<QuizDto> ask = quizGenerateService.ask(s);
+
+        return ResponseEntity.ok(ask);
     }
 }

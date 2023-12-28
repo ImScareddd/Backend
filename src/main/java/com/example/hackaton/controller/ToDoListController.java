@@ -8,7 +8,6 @@ import com.example.hackaton.repository.EmotionalScoreRepository;
 import com.example.hackaton.repository.ImageRepository;
 import com.example.hackaton.repository.ToDoListRepository;
 import com.example.hackaton.service.ImageGenerateService;
-import com.example.hackaton.service.PromptService;
 import com.theokanning.openai.image.CreateImageRequest;
 import com.theokanning.openai.service.OpenAiService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,6 @@ public class ToDoListController {
 
     private final ImageRepository imageRepository;
     private final EmotionalScoreRepository emotionalScoreRepository;
-    private final PromptService promptService;
     private final ToDoListRepository toDoListRepository;
     private final ImageGenerateService imageGenerateService;
 
@@ -72,18 +70,6 @@ public class ToDoListController {
     }
 
 
-
-
-    @PostMapping("/emotionalScore")
-    public ResponseEntity<String> emotionalScore(
-            @RequestParam Long googleId,
-            @RequestParam String date,
-            @RequestParam int emotionalScore){
-
-        EmotionalScore emotionalScore1 = new EmotionalScore(googleId, date, emotionalScore);
-        emotionalScoreRepository.save(emotionalScore1);
-        return ResponseEntity.ok("Success");
-    }
 
 
 }

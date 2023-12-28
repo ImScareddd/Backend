@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-public class TensorController {
+public class EmotionalScoreController {
 
     @Autowired
     EmotionalScoreRepository emotionalScoreRepository;
@@ -26,7 +26,7 @@ public class TensorController {
 
 
     @GetMapping("/Predict")
-    public ResponseEntity<String> generateToDoList(@RequestParam long googleId){
+    public ResponseEntity<String> predictEmotionalScore(@RequestParam long googleId){
 
         List<EmotionalScore> byGoogleId = emotionalScoreRepository.findByGoogleId(googleId);
         ArrayList<EmotionalScoreDto> emotionalScoreDtos = new ArrayList<>();
@@ -38,7 +38,20 @@ public class TensorController {
             emotionalScoreDtos.add(emotionalScoreDto);
         }
         flaskclient.trainModel(emotionalScoreDtos);
-        flaskclient.predict(emotionalScoreDtos);
+        List<Double> predict = flaskclient.predict(emotionalScoreDtos);
+        System.out.println(predict);
         return ResponseEntity.ok("Success");
     }
+
+    @PostMapping("/emotionalScore")
+    public ResponseEntity<String> emotionalScore(
+            @RequestParam Long googleId,
+            @RequestParam String date,
+            @RequestParam int emotionalScore){
+
+        EmotionalScore emotionalScore1 = new EmotionalScore(googleId, date, emotionalScore);
+        emotionalScoreRepository.save(emotionalScore1);
+        return ResponseEntity.ok("Success");
+    }
+
 }

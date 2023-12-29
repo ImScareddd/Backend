@@ -17,7 +17,7 @@ public class ImageGenerateService {
     public String openAiImageUrl(String imageToRequest) {
         OpenAiService service = new OpenAiService(OPENAI_KEY);
         CreateImageRequest build = CreateImageRequest.builder()
-                .prompt(imageToRequest)
+                .prompt(imageToRequest+"\n 위의 하루 기록을 포괄하는 그림을 만들어줘\n 이미지 비율은 16:9로 해줘")
                 .n(1)
                 .size("512x512")
                 .build();

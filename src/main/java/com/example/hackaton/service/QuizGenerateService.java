@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 @Service
 public class QuizGenerateService {
 
-    private static final String TOKEN = "your_token_here";
+    private static final String TOKEN = "ewiOCiyTcXwDoR0GWnhPpcEu_pLqKpPtVx4Wr_VNnLTJSWEhUpP_QZz6pokVskP65Vlm3g.;bE0CiwOjO8Tg9hrw/AimjbslWZuEIM4ycL";
 
     public List<QuizDto> ask(String question) {
         AIClient client = new GoogleBardClient(TOKEN);
